@@ -1,18 +1,27 @@
-
+import configparser
+import sensors
 class Monitor
     def __init__(self):
-        self.sensors = []
-        # call function that initializes the sensor objects
-        self.server_ip
-        self.server_port
-        # call function that reads a config file and sets these values up
+        self.config.read('ipro_vault.ini')
+        self.read_config()
+
+    def read_config():
+        if self.config['sensors']['temperature']:
+            self.sensors.append(sensors.DHT11.DHT11.getJSON())
+
+        self.server_ip = self.config['server']['ip']
+        self.server_port = self.config['server']['port']
+        self.location = self.config['information']['location']
+        self.serial_number = self.config['information']['serial_number']
 
     def send_json_to_server(self, json):
         """
-        call getSensorJson to get all the sensor data and relay it to the REST Server
+        call getSensorJson to get all the sensor data and relay it
+        to the REST Server
         """
         #Notes: POST should we also do authentication with a secret key?
-    def getSensorJson(self,):
+
+    def getSensorData(self,):
         """
         walk through the sensor object array
         and call getJson to get the values
@@ -23,5 +32,5 @@ class Monitor
             data[sensor.name] = sensor.getJson()
 
         return data
-        
-        
+
+
