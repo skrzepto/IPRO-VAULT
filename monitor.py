@@ -7,18 +7,20 @@ from datetime import datetime, timezone
 
 class Monitor:
     def __init__(self):
+        self.sensors = []
+        self.config = configparser.ConfigParser()
         self.config.read('ipro_vault.ini')
         self.read_config()
 
-    def read_config():
-        if self.config['sensors']['temperature']:
+    def read_config(self):
+        if self.config['sensors']['temperature'] == 1:
             self.sensors.append(sensors.DHT11.get_json())
 
         self.server_ip = self.config['server']['ip']
         self.server_port = self.config['server']['port']
         self.location = self.config['information']['location']
         self.serial_number = self.config['information']['serial_number']
-        self.interval_min = self.config['information']['interval_min']
+        self.interval_min = int(self.config['information']['interval_min'])
 
     def send_json_to_server(self, json_data):
         """
@@ -37,6 +39,7 @@ class Monitor:
             response = requests.post(url, data=json.dumps(payload), headers=headers)
         except:
             # we need to log this since there was an issue sending the data
+            print("ERROR: Failed to send data")
             pass
 
     def get_sensor_data(self):
@@ -51,9 +54,10 @@ class Monitor:
 
         return data
 
-    def run():
+    def run(self):
         while True:
-            time.sleep(self.interval_min*60)
+            # time.sleep(self.interval_min*60)
+            time.sleep(1) # for debugging
             data = self.get_sensor_data()
             self.send_json_to_server(json_data=data)
 
