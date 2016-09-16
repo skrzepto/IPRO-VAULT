@@ -1,5 +1,8 @@
 import configparser
 import sensors
+import json
+import requests
+
 class Monitor
     def __init__(self):
         self.config.read('ipro_vault.ini')
@@ -20,8 +23,16 @@ class Monitor
         to the REST Server
         """
         #Notes: POST should we also do authentication with a secret key?
+        url = str(self.server_ip + ":" + self.server_port)
+        payload = {'sensors': json
+                  'location': self.location,
+                  'serial_number': self.serial_number}
 
-    def getSensorData(self,):
+        headers = {'content-type': 'application/json'}
+
+        response = requests.post(url, data=json.dumps(payload), headers=headers)
+
+    def getSensorData(self):
         """
         walk through the sensor object array
         and call getJson to get the values
