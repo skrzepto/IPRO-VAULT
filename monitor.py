@@ -8,7 +8,6 @@ class Monitor
     def __init__(self):
         self.config.read('ipro_vault.ini')
         self.read_config()
-        self.run()
 
     def read_config():
         if self.config['sensors']['temperature']:
@@ -52,3 +51,7 @@ class Monitor
             time.sleep(self.interval_min*60)
             data = self.get_sensor_data()
             self.send_json_to_server(json_data=data)
+
+if __name__ == "__main__":
+    mon = Monitor()
+    mon.run()
