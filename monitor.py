@@ -5,7 +5,7 @@ import requests
 import time
 from datetime import datetime, timezone
 
-class Monitor
+class Monitor:
     def __init__(self):
         self.config.read('ipro_vault.ini')
         self.read_config()
@@ -29,9 +29,9 @@ class Monitor
         url = str(self.server_ip + ":" + self.server_port)
         payload = {'sensors': json_data,
                   'location': self.location,
-                  'serial_number': self.serial_number
+                  'serial_number': self.serial_number,
                   'datetime': datetime.now(timezone.utc).isoformat()}
-
+        print(payload)
         headers = {'content-type': 'application/json'}
         try:
             response = requests.post(url, data=json.dumps(payload), headers=headers)
@@ -51,7 +51,7 @@ class Monitor
 
         return data
 
-    def run()
+    def run():
         while True:
             time.sleep(self.interval_min*60)
             data = self.get_sensor_data()
