@@ -3,6 +3,7 @@ import sensors
 import json
 import requests
 import time
+from datetime import datetime, timezone
 
 class Monitor
     def __init__(self):
@@ -28,11 +29,15 @@ class Monitor
         url = str(self.server_ip + ":" + self.server_port)
         payload = {'sensors': json_data,
                   'location': self.location,
-                  'serial_number': self.serial_number}
+                  'serial_number': self.serial_number
+                  'datetime': datetime.now(timezone.utc).isoformat()}
 
         headers = {'content-type': 'application/json'}
-
-        response = requests.post(url, data=json.dumps(payload), headers=headers)
+        try:
+            response = requests.post(url, data=json.dumps(payload), headers=headers)
+        except:
+            # we need to log this since there was an issue sending the data
+            pass
 
     def get_sensor_data(self):
         """
