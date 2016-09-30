@@ -4,17 +4,22 @@ import json
 import requests
 import time
 from datetime import datetime, timezone
+from collections import Counter
 
 class Monitor:
     def __init__(self):
-        self.sensors = []
+        self.sensors = {}
         self.config = configparser.ConfigParser()
         self.config.read('ipro_vault.ini')
         self.read_config()
 
     def read_config(self):
         if self.config['sensors']['temperature'] == 1:
-            self.sensors.append(sensors.DHT11.get_json())
+            self.sensors['temperature']= sensors.DHT11()
+        if self.config['sensors']['humidity'] == 1:
+            # DHT11     
+            pass
+        # add other sensors here
 
         self.server_ip = self.config['server']['ip']
         self.server_port = self.config['server']['port']
@@ -22,14 +27,14 @@ class Monitor:
         self.serial_number = self.config['information']['serial_number']
         self.interval_min = int(self.config['information']['interval_min'])
 
-    def send_json_to_server(self, json_data):
+    def send_json_to_server(self, sensor_data):
         """
         call getSensorJson to get all the sensor data and relay it
         to the REST Server
         """
         #Notes: POST should we also do authentication with a secret key?
         url = str(self.server_ip + ":" + self.server_port)
-        payload = {'sensors': json_data,
+        payload = {'sensors': sensor_data,
                   'location': self.location,
                   'serial_number': self.serial_number,
                   'datetime': datetime.now(timezone.utc).isoformat()}
@@ -48,9 +53,9 @@ class Monitor:
         and call getJson to get the values
         return
         """
-        data = {}
+        sensor_data = Counter()
         for sensor in self.sensors:
-            data[sensor.name] = sensor.getJson()
+            sensor_data += Counter(sensor.getJson())
 
         return data
 
