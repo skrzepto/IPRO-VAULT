@@ -1,10 +1,10 @@
 import configparser
-import sensors
 import json
 import requests
 import time
 from datetime import datetime, timezone
 from collections import Counter
+from sensors.dht11 import DHT11
 
 class Monitor:
     def __init__(self):
@@ -15,7 +15,7 @@ class Monitor:
 
     def read_config(self):
         if self.config['sensors']['temperature'] == 1:
-            self.sensors['temperature']= sensors.DHT11()
+            self.sensors['temperature']= DHT11()
         if self.config['sensors']['humidity'] == 1:
             # DHT11     
             pass
@@ -54,8 +54,8 @@ class Monitor:
         return
         """
         sensor_data = Counter()
-        for sensor in self.sensors:
-            sensor_data += Counter(sensor.getJson())
+        for key, value in self.sensors.items():
+            sensor_data += Counter(value.get_json())
 
         return data
 
