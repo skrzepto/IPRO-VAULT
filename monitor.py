@@ -4,7 +4,6 @@ import requests
 import time
 from datetime import datetime, timezone
 from collections import Counter
-from sensors.dht11 import DHT11
 
 class Monitor:
     def __init__(self):
@@ -15,6 +14,7 @@ class Monitor:
 
     def read_config(self):
         if self.config['sensors']['temperature'] == 1:
+            from sensors.dht11 import DHT11
             self.sensors['temperature']= DHT11()
         if self.config['sensors']['humidity'] == 1:
             # DHT11     
@@ -57,14 +57,14 @@ class Monitor:
         for key, value in self.sensors.items():
             sensor_data += Counter(value.get_json())
 
-        return data
+        return sensor_data
 
     def run(self):
         while True:
             # time.sleep(self.interval_min*60)
             time.sleep(1) # for debugging
             data = self.get_sensor_data()
-            self.send_json_to_server(json_data=data)
+            self.send_json_to_server(sensor_data=data)
 
 if __name__ == "__main__":
     mon = Monitor()
