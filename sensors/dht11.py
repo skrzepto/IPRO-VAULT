@@ -1,6 +1,8 @@
 import Adafruit_DHT
 from datetime import datetime, timezone
 
+#DHT11 Temperature Humidity Sensor
+
 class DHT11:
     def __init__(self, gpio_pin=4, sensor_ver=11):
         self.humidity=-1
