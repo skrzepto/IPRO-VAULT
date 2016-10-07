@@ -27,9 +27,9 @@ class Monitor:
             pass
 
 
-        #Manny's BMP_180 reader (rename later)
+        #BMP180
         if self.config['sensors']['pressure'] == 1;
-            from sensors.MB_BMP180 import BMP_180
+            from sensors.BMP180 import BMP_180
             self.sensors['pressure']= BMP_180()
 
             pass
