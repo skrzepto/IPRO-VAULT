@@ -13,12 +13,22 @@ class Monitor:
         self.read_config()
 
     def read_config(self):
+        #template
+        #   if self.config['sensors'][''] == "1";
+        #        from sensors. import
+        #        self.sensors['']=
+
         if self.config['sensors']['temperature'] == "1":
             from sensors.dht11 import DHT11
             self.sensors['temperature']= DHT11()
         if self.config['sensors']['humidity'] == "1":
             # DHT11     
             pass
+
+        if self.config['sensors']['pressure'] == "1":
+            from sensors.MB_BMP180 import BMP_180
+            self.sensors['pressure']= BMP_180()
+
         # add other sensors here
 
         self.server_ip = self.config['server']['ip']
