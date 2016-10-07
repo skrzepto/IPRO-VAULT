@@ -3,7 +3,7 @@ https://az835927.vo.msecnd.net/sites/iot/Resources/images/PinMappings/RP2_Pinout
 
 Pin 1  = 3.3v for BMP180 sensor
 Pin 3 & 5 = Signal for BMP180 sensor
-Pin 7 = Signal for DHT11 sensor
+Pin 7 = Signal for DHT11 sensor --- "dht11.py" code already has correct GPIO pin coded
 Pin 9 = Ground for all sensors
 Pin 11 = Signal for water level sensor
 Pin 2 = 5v power for DHT11 and water sensor
