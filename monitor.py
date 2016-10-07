@@ -77,8 +77,7 @@ class Monitor:
 
     def run(self):
         while True:
-            # time.sleep(self.interval_min*60)
-            time.sleep(1) # for debugging
+            time.sleep(self.interval_min*60)
             data = self.get_sensor_data()
             self.send_json_to_server(sensor_data=data)
 
