@@ -55,7 +55,7 @@ class Monitor:
         """
         sensor_data = {}
         for key, value in self.sensors.items():
-            sensor_data += {value.get_json()}
+            sensor_data.update({value.get_json()})
 
         return sensor_data
 
