@@ -3,7 +3,7 @@ import json
 import requests
 import time
 from datetime import datetime, timezone
-from collections import Counter
+
 
 class Monitor:
     def __init__(self):
@@ -50,10 +50,10 @@ class Monitor:
         """
         #Notes: POST should we also do authentication with a secret key?
         url = str(self.server_ip + ":" + self.server_port)
-        payload = {'sensors': sensor_data,
-                  'location': self.location,
+        payload = {'location': self.location,
                   'serial_number': self.serial_number,
                   'datetime': datetime.now(timezone.utc).isoformat()}
+        payload.update(sensor_data)
         print(payload)
         headers = {'content-type': 'application/json'}
         try:
@@ -69,9 +69,9 @@ class Monitor:
         and call getJson to get the values
         return
         """
-        sensor_data = Counter()
+        sensor_data = {}
         for key, value in self.sensors.items():
-            sensor_data += Counter(value.get_json())
+            sensor_data.update({value.get_json()})
 
         return sensor_data
 
