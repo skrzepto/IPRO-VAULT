@@ -25,9 +25,15 @@ class Monitor:
             # DHT11     
             pass
 
-        if self.config['sensors']['pressure'] == "1":
-            from sensors.MB_BMP180 import BMP_180
+        #BMP_180 reader
+        if self.config['sensors']['pressure'] == "1";
+            from sensors.BMP180 import BMP_180
             self.sensors['pressure']= BMP_180()
+
+        #Wet Sensor
+        if self.config['sensors']['wet'] == "1";
+            from sonsors.Water import Water
+            self.sensors['wet']= Water()
 
         # add other sensors here
 
