@@ -1,5 +1,4 @@
 import Adafruit_BMP.BMP085 as BMP085
-from datetime import datetime, timezone
 
 #BMP085 Temperature Pressure Sensor
 
@@ -11,7 +10,6 @@ class BMP085:
         self.pressure
         #self.altitude
         #self.sealevel_pressure
-        self.timestamp = datetime.now(timezone.utc).isoformat()
 
     def read_sensors(self):
         self.temperature = sensor.read_temperature()
