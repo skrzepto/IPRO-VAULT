@@ -27,12 +27,16 @@ class Monitor:
             pass
 
 
-        #Manny's BMP_180 reader (rename later)
+        #BMP_180 reader
         if self.config['sensors']['pressure'] == 1;
-            from sensors.MB_BMP180 import BMP_180
+            from sensors.BMP180 import BMP_180
             self.sensors['pressure']= BMP_180()
-
             pass
+
+        #Wet Sensor
+           if self.config['sensors']['wet'] == 1;
+                from sonsors.Water import Water
+                self.sensors['wet']= Water()
 
 
         # add other sensors here
