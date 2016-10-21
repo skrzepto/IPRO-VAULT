@@ -13,10 +13,10 @@ class Monitor:
         self.read_config()
 
     def read_config(self):
-        if self.config['sensors']['temperature'] == 1:
+        if self.config['sensors']['temperature'] == "1":
             from sensors.dht11 import DHT11
             self.sensors['temperature']= DHT11()
-        if self.config['sensors']['humidity'] == 1:
+        if self.config['sensors']['humidity'] == "1":
             # DHT11     
             pass
         # add other sensors here
