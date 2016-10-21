@@ -33,9 +33,9 @@ class Monitor:
         to the REST Server
         """
         #Notes: POST should we also do authentication with a secret key?
-        url = str(self.server_ip + ":" + self.server_port)
+        url = 'http://'+str(self.server_ip + ":" + self.server_port + "/api/sensor_data/"+str(self.serial_number))
         payload = {'location': self.location,
-                  'serial_number': self.serial_number,
+                  'serial_number':int(self.serial_number),
                   'datetime': datetime.now(timezone.utc).isoformat()}
         payload.update(sensor_data)
         print(payload)
@@ -55,7 +55,7 @@ class Monitor:
         """
         sensor_data = {}
         for key, value in self.sensors.items():
-            sensor_data.update({value.get_json()})
+            sensor_data.update(value.get_json())
 
         return sensor_data
 
@@ -64,6 +64,7 @@ class Monitor:
             time.sleep(self.interval_min*60)
             data = self.get_sensor_data()
             self.send_json_to_server(sensor_data=data)
+            print(data)
 
 if __name__ == "__main__":
     mon = Monitor()
