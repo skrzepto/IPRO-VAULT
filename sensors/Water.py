@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-from datetime import datetime, timezone
 
 
 class Water:
@@ -9,7 +8,6 @@ class Water:
         self.pull_up_down="GPIO.PUD_%s"(str(pull_up_down))
         GPIO.setup(gpio_pin, GPIO.IN, pull_up_down)
         self.wet
-        self.timestamp = datetime.now(timezone.utc).isoformat()
 
     def read_sensors(self):
         self.wet = GPIO.input(gpio_pin)
