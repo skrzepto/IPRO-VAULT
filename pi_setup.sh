@@ -11,6 +11,7 @@ git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
 wget https://github.com/adafruit/Adafruit_Python_MCP9808/archive/master.zip
 git clone https://github.com/skrzepto/IPRO-VAULT.git
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+git clone https://github.com/adafruit/Adafruit_Python_BMP.git
 
 pip3 install requests
 
@@ -24,4 +25,7 @@ cd Adafruit_Python_MCP9808-master
 python3 setup.py install
 cd ..
 cd Adafruit_Python_DHT
+python3 setup.py install
+cd ..
+cd Adafruit_Python_BMP
 python3 setup.py install
