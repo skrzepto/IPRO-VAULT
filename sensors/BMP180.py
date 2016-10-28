@@ -6,10 +6,10 @@ class BMP180:
 
     def __init__(self):
         self.sensor = BMP085.BMP085()
-        self.temperature
-        self.pressure
-        self.altitude
-        self.sealevel_pressure
+        # self.temperature
+        self.pressure = -1
+        # self.altitude
+        # self.sealevel_pressure
 
     def read_sensors(self):
         # self.temperature = self.sensor.read_temperature()
