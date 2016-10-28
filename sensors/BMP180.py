@@ -19,7 +19,9 @@ class BMP085:
 
     def get_json(self):
         self.read_sensors()
-        return {#"temp": self.temperature,
-                "pressure": self.pressure,
-                #"Altitude": self.altitude,
-                #"sealevel_pressure": self.sealevel_pressure}
+        res = {}
+        res['pressure'] = self.pressure
+        # res['temperature2'] = self.temperature
+        # res['altitude'] = self.altitude
+        # res['sealevel_pressure'] = self.sealevel_pressure
+        return res 
