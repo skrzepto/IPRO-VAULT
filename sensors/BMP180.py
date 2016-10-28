@@ -4,7 +4,7 @@ import Adafruit_BMP.BMP085 as BMP085
 
 class BMP180:
 
-    def _init_(self):
+    def __init__(self):
         self.sensor = BMP085.BMP085()
         self.temperature
         self.pressure
